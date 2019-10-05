@@ -49,16 +49,17 @@ function buildCharts(sample) {
 
     // Build a Pie Chart
     d3.json(plotData).then(function(data){
-      var values = data.sample_values.slice(0,10);
-      var labels = data.otu_ids.slice(0,10);
+      var value =data.sample_values.slice(0,10);
+      var label = data.otu_ids.slice(0,10);
       var display = data.otu_labels.slice(0,10);
-
+      console.log(label);
       var pie_chart = [{
-        values: values,
-        lables: labels,
+        values: value,
+        labels: label,
         hovertext: display,
         type: "pie"
       }];
+      console.log(label);
       Plotly.newPlot('pie',pie_chart);
     });
   });
@@ -84,14 +85,14 @@ function init() {
 
     // Use the first sample from the list to build the initial plots
     const firstSample = sampleNames[0];
-    buildPlots(firstSample);
+    buildCharts(firstSample);
     buildMetadata(firstSample);
   });
 };
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
-  buildPlots(newSample);
+  buildCharts(newSample);
   buildMetadata(newSample);
 }
 
